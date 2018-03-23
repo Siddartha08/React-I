@@ -1,53 +1,49 @@
 import React, { Component } from 'react';
 import Todo from './Todo';
 
+
 class TodoList extends Component {
-    constructor() {
-        super()
-                    this.state= {
-            tasks: Todo,
+        state = {
+            tasks: [],
             newTodo: ''
         }
-    }
-    // Todo.constructor().state.tasks
-    // Todo = Todo.super(props);
-    
-    formSubmit = event => {
-        event.preventDefault();
-        const newTodo = this.state.newTodo;
-        const tasksArray = this.state.tasks;
-        tasksArray.push(newTodo);
-        this.setState({ tasks: tasksArray, newTodo: "" });
-    };  
-    
     
 
-    render() {
 
-        // const { children } = this.props;
-        // var childrenWithProps = Todo.map(children, index) => {
+formSubmit = (event) => {
+event.preventDefault();
+const tasks = [...this.state.tasks];
+const newTodo = {todo: this.state.newTodo, clicked: false};
+tasks.push(newTodo);
+this.setState({ tasks: tasks, newTodo: '' });
+} 
 
+inputChange = (event) => {
+    const newTodo = event.target.value;
+    this.setState({ newTodo: newTodo})
+};
 
-
-        // }
-
-
-        return (
-        <div>
-            <Todo />
-          {/* {this.state.tasks.map((tasks, i) => <Todo key={i} tasks={tasks} />)} */}
-            <form  onSubmit={this.formSubmit}>
-                <input id="addtodo" type="text" onChange={this.inputChange} placeholder="Add an item to yourlist!" value={this.state.newToDo} />
-  
-                    <div>
-                     <button type="submit">Add ToDo</button>
-                    </div>
-            </form>
-        </div>
-        )
-    }
-
-
+clickTodo = (index) => {
 
 }
-export default TodoList;
+
+render() {
+    return (
+        <div>
+            {this.state.tasks.map( (tasks, index) => {
+              return <Todo key={index} tasks={tasks}/>
+            }
+            )}
+            <form onSubmit={this.formSubmit}>
+                <input id="addtodo" type="text" onChange={this.inputChange} value={this.state.newTodo} placeholder="Add an item to yourlist!"/>
+            
+                <div>
+                    <button type="submit">Add ToDo</button>
+                </div>
+            </form>
+        </div>
+)}
+}
+  
+
+  export default TodoList;

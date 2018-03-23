@@ -1,39 +1,31 @@
-import React, { Component } from 'react';
-
+import React, { Component } from "react";
 
 
 class Todo extends Component {
-    constructor(props) {
-    super(props);
-    this.state = {
-      tasks: ['get milk', 'buy eggs', 'stay classy'],
-      newTask: ''
-    }
-    }
-
-    inputChange = event => {
-        this.setState({ newTask: event.target.value });
-    };
-
-    handleClick = event => {
-        let value = document.querySelectorAll("myCheck");
-        return value;
+      state = {
+          clicked: false,
+          style: 'none'
+        
+      }
     
-    }
-render() {
-    return (
-        <div>
-        {this.state.tasks.map((tasks, index) => {
-            return ( 
-              <div key={index}>
-                <input type="checkbox" onClick={this.handleClick} ></input>
-                {tasks}
-              </div>
-            )
-        })}
-        </div>
-    )
+
+
+  handleClick = (event) => {
+    const clicked = this.state.clicked;
+    const style = !clicked ? 'line-through' : 'none'
+    this.setState({clicked: !clicked, style: style})
+    // let value = document.querySelectorAll("myCheck");
+    // return value;
+  
+  }
+
+    
+    render() {
+        const styles = { textDecoration: this.state.style }
+            return (
+            <div style={styles}> <input type="checkbox" onClick={this.handleClick}/> {this.props.tasks.todo}  </div>
+            )}
+    
 }
 
-}
-export default Todo;
+    export default Todo;
